@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Quản lý thể loại</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/manager/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/manager/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:include="~{manager/rightbar :: rightbar}"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <div th:include="~{manager/navbar :: navbar}"></div>
+                <!-- End of Topbar -->
+
+                                <!-- Begin Page Content -->
+                                <div class="container-fluid">
+
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Danh sách hóa đơn</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div th:if="${param.successMessage}" class="alert alert-danger" th:text="${param.successMessage}"></div>
+                                            <form th:action="@{/manager/bill}" method="get">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control  border-1 small" placeholder="Search for name"
+                                                           aria-label="Search" aria-describedby="basic-addon2" name="name" th:value="${name}">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-primary" type="submit">
+                                                            <i class="fas fa-search fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Mã hóa đơn</th>
+
+                                                            <th>Họ và tên</th>
+                                                            <th>Số điện thoại</th>
+                                                            <th>Email</th>
+                                                            <th>Ngày đặt hàng</th>
+                                                            <th>Địa chỉ</th>
+                                                            <th>Tổng tiền</th>
+                                                            <th>Trạng thái</th>
+
+                                                            <th>Xóa</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Mã hóa đơn</th>
+
+                                                        <th>Họ và tên</th>
+                                                        <th>Số điện thoại</th>
+                                                        <th>Email</th>
+                                                        <th>Ngày đặt hàng</th>
+                                                        <th>Địa chỉ</th>
+                                                        <th>Tổng tiền</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>Xóa</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                    <tbody>
+                                                    <tr th:each="bill : ${billPage.content}">
+                                                        <td th:text="${bill.billID}"></td>
+
+                                                        <td th:text="${bill.fullname}"></td>
+                                                        <td th:text="${bill.phoneNumber}"></td>
+                                                        <td th:text="${bill.email}"></td>
+                                                        <td th:text="${bill.orderDate}"></td>
+                                                        <td th:text="${bill.address}"></td>
+                                                        <td  th:text="${#numbers.formatDecimal(bill.total, 0, 'COMMA', 0, 'POINT').trim()} + ' VND'"></td>
+                                                        <td>
+                                                            <form th:action="@{/manager/bill/updateAction}" method="post">
+                                                                <input type="hidden" name="billID" th:value="${bill.billID}" />
+                                                                <select class="form-select custom-select" name="action" aria-label="Default select example" onchange="this.form.submit()">
+                                                                    <option th:each="action : ${action}" th:text="${action}" th:value="${action}" th:selected="${action == bill.action}"></option>
+                                                                </select>
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form th:action="@{'/manager/bill/delete/' + ${bill.billID}}" method="post">
+                                                                <input type="submit" value="Xóa" class="btn btn-danger"/>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+
+                                                </table>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.container-fluid -->
+                <div class="row page1">
+                    <div class="col-12 d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item" th:classappend="${billPage.number == 0} ? 'disable'">
+                                    <a class="page-link" th:href="@{/manager/bill(field=${field}, page=0, size=${billPage.size})}">First</a>
+                                </li>
+                                <li class="page-item" th:classappend="${billPage.number == 0} ? 'disabled'">
+                                    <a class="page-link" th:href="@{/manager/bill(field=${field}, page=${billPage.number - 1}, size=${billPage.size})}">Previous</a>
+                                </li>
+                                <li class="page-item" th:each="i : ${#numbers.sequence(0, billPage.totalPages - 1)}" th:classappend="${i == billPage.number} ? 'active'">
+                                    <a class="page-link" th:href="@{/manager/bill(field=${field}, page=${i}, size=${billPage.size})}" th:text="${i + 1}"></a>
+                                </li>
+                                <li class="page-item" th:classappend="${billPage.number + 1 == billPage.totalPages} ? 'disabled'">
+                                    <a class="page-link" th:href="@{/manager/bill(field=${field}, page=${billPage.number + 1}, size=${billPage.size})}">Next</a>
+                                </li>
+                                <li class="page-item" th:classappend="${billPage.number + 1 == billPage.totalPages} ? 'disabled'">
+                                    <a class="page-link" th:href="@{/manager/bill(field=${field}, page=${billPage.totalPages - 1}, size=${billPage.size})}">Last</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Main Content -->
+
+
+
+
+            <!--Kết thúc bảng edit-->
+            <!-- Footer -->
+            <div th:include="~{manager/footer :: footer}"></div>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/manager/vendor/jquery/jquery.min.js"></script>
+    <script src="/manager/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/manager/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/manager/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/manager/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/manager/js/demo/chart-area-demo.js"></script>
+    <script src="/manager/js/demo/chart-pie-demo.js"></script>
+
+</body>
+<style>
+    .font{
+        text-decoration: none;
+        color: white;
+    }
+    .form-select.custom-select {
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+        padding: 10px;
+        font-size: 14px;
+        appearance: none; /* Remove default arrow */
+        background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-chevron-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>'); /* Custom arrow */
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 12px 12px;
+        height: auto; /* Ensure height auto */
+        line-height: normal; /* Set line-height to normal */
+    }
+
+    .form-select.custom-select option {
+        padding: 10px; /* Add padding to prevent text from being cut off */
+    }
+
+    .form-select.custom-select option:nth-child(1) {
+        background-color: #f8d7da; /* Light red */
+    }
+
+    .form-select.custom-select option:nth-child(2) {
+        background-color: #d4edda; /* Light green */
+    }
+
+    .form-select.custom-select option:nth-child(3) {
+        background-color: #fff3cd; /* Light yellow */
+    }
+
+    .form-select.custom-select option:nth-child(4) {
+        background-color: #d1ecf1; /* Light blue */
+    }
+
+    /* Ensure the selected option color is not lost */
+    .form-select.custom-select option:checked {
+        background-color: inherit;
+    }
+
+
+
+</style>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Đặt hàng thành công</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<style>
+    .nav-item {
+        white-space: nowrap;
+    }
+</style>
+<body>
+<div class="container-fluid mb-5">
+    <div th:include="~{home/topbar :: topbar}"></div>
+</div>
+
+    <!-- Checkout Start -->
+<div class="container">
+    <div class="row px-xl-5">
+        <div class="col-lg-12">
+            <!-- Nội dung hóa đơn -->
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0"><span th:text="#{info.tt}"></span></h4>
+                </div>
+                <div class="card-body">
+                    <!-- Hiển thị thông tin Khách hàng -->
+                    <p >Tên đăng nhập: <span th:text="${user.username}"></span></p>
+                    <p >Họ và tên: <span th:text="${user.fullname}"></span></p>
+                    <p>Email: <span th:text="${user.email}"></span></p>
+                    <p >Số điện thoại: <span th:text="${user.phoneNumber}"></span></p>
+
+                    <p>Giới tính: <span th:text="${user.gender}"></span></p>
+                    <p>Ngày sinh: <span th:text="${#dates.format(user.ngaysinh, 'dd-MM-yyyy')}"></span></p>
+
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <button class="btn btn-primary btn-block border-0 py-3" ><a href="/user_update" style="text-decoration: none; color: whitesmoke"><span th:text="#{info.cntt}"></span></a> </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+    <!-- Checkout End -->
+
+<div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+
+    <div th:include="~{home/footer :: footer}"></div>
+</div>
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

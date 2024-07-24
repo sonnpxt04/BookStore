@@ -1,0 +1,93 @@
+<div th:fragment="topbar2">
+    <!-- Topbar Start -->
+        <div class="row bg-secondary py-2 px-xl-5">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="d-inline-flex align-items-center">
+                    <div class="navbar-nav ml-auto py-0 d-flex align-items-center">
+                        <div th:if="${session.loggedInUser != null}" class="d-flex align-items-center">
+                            <a href="/user_info" class="nav-item nav-link" th:text="'Welcome, ' + ${session.loggedInUser}"></a>
+                            <span class="text-muted px-2">|</span>
+                            <a th:href="@{/logout}" class="nav-item nav-link"><span th:text="#{home.logout}"></span></a>
+                            <span class="text-muted px-2">|</span>
+                            <div th:if="${session.isAdmin}">
+                                <a href="/manager/home" class="nav-item nav-link"><span th:text="#{home.admin}"></span></a>
+                            </div>
+                        </div>
+                        <div th:if="${session.loggedInUser == null}" class="d-flex align-items-center">
+                            <a href="/login" class="nav-item nav-link"><span th:text="#{home.login}"></span></a>
+                            <span class="text-muted px-2">|</span>
+                            <a href="/login" class="nav-item nav-link"><span th:text="#{home.register}"></span></a>
+                        </div>
+                    </div>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark nav-item" href="">FAQs</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark nav-item" href=""><span th:text="#{home.help}"></span></a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark nav-item" th:href="@{/sup}"><span th:text="#{home.sup}"></span></a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark nav-item" th:href="@{?lang=en}"><span th:text="#{home.la}"></span></a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark nav-item" th:href="@{?lang=vi}"><span th:text="#{home.vn}"></span></a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark nav-item" th:href="@{?lang=fr}"><span th:text="#{home.fr}"></span></a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark nav-item" th:href="@{?lang=ko}"><span th:text="#{home.ko}"></span></a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark nav-item" th:href="@{?lang=ja}"><span th:text="#{home.ja}"></span></a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-dark pl-2" href="">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center py-3 px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="/" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">BOOKSTORE</span></h1>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left">
+                <form action="">
+
+                </form>
+            </div>
+            <div class="col-lg-3 col-6 text-right">
+
+            </div>
+        </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+            $("a[href*=lang]").on("click", function() {
+                var param = $(this).attr("href");
+                var currentUrl = window.location.pathname;
+                $.ajax({
+                    url: currentUrl + param,
+                    success: function() {
+                        location.reload();
+                    }
+                });
+                return false;
+            });
+        });
+        /*]]>*/
+    </script>
+    <!-- Topbar End -->
+</div>

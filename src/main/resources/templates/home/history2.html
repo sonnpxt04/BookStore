@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Lịch sử mua hàng</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- Navbar Start -->
+<div class="container-fluid mb-5">
+    <div th:include="~{home/topbar :: topbar}"></div>
+</div>
+<!-- Navbar End -->
+
+<!-- Cart Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="container mt-3">
+            <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold  px-3 mr-1">LỊCH SỬ MUA HÀNG</span></h1>
+            <div th:if="${param.successMessage}" class="alert alert-danger" th:text="${param.successMessage}"></div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Đơn hàng</th>
+
+                    <th>Fullname</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày</th>
+                    <th>Địa chỉ</th>
+                    <th>Trạng thái</th>
+                    <th>Tổng giá trị</th>
+
+
+
+
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr >
+                    <td th:text="${bill.billID}"></td>
+
+                    <td th:text="${bill.fullname}"></td>
+                    <td th:text="${bill.phoneNumber}"></td>
+                    <td th:text="${bill.orderDate}"></td>
+        <th th:text="${bill.address}"></th>
+                    <td th:text="${bill.action}"></td>
+                    <td  th:text="${#numbers.formatDecimal(bill.total, 0, 'COMMA', 0, 'POINT').trim()} + ' VND'"></td>
+
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!-- Cart End -->
+
+
+<!-- Footer Start -->
+
+<!-- Footer End -->
+<div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+
+    <div th:include="~{home/footer :: footer}"></div>
+</div>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="/mail/jqBootstrapValidation.min.js"></script>
+<script src="/mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+</body>
+<style>
+    .nav-item {
+        white-space: nowrap;
+    }
+</style>
+</html>
