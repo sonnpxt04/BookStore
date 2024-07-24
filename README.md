@@ -1,6 +1,6 @@
-Project - BookStrore 
-Technology: Java, Spring Boot, Thymeleaf, Bootstrap 5, SQL- Server
-Responsibility:
+Project - BookStrore <br>
+Technology: Java, Spring Boot, Thymeleaf, Bootstrap 5, SQL- Server <br>
+Responsibility: <br>
 - Write code for sending mail: forgot password.
 - Write code to add, edit, delete, update admin and client accounts
 - Join in coding for adding, editing, deleting, and updating products
